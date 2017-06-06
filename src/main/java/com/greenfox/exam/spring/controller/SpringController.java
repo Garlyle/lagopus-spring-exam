@@ -20,26 +20,27 @@ import java.util.List;
 @RestController
 public class SpringController {
   final static String className = "eagles";
+
   @Autowired
   QuestionRepository questionRepository;
 
   @GetMapping("/questions")
   public QuestionsResponse getQuestions() {
-    QuestionsResponse questionsResponse = new QuestionsResponse();
+    QuestionsResponse response = new QuestionsResponse();
 
     int i = 1;
     while (i <= 5) {
       long randomId = (long)(Math.random() * questionRepository.count()) + 1;
-      if (!questionsResponse.contains(randomId)) {
+      if (!response.contains(randomId)) {
         Question repoLookup = questionRepository.findOne(randomId);
         Question question = new Question(randomId);
         question.setQuestion(repoLookup.getQuestion());
-        questionsResponse.add(question);
+        response.add(question);
         i++;
       }
     }
 
-    return questionsResponse;
+    return response;
   }
 
   @PostMapping("/answers")
@@ -47,7 +48,6 @@ public class SpringController {
     List<Project> projectList = new ArrayList<>();
 
     int count = 0;
-
     List<Question> answers = answersBody.getQuestions();
     for (Question answer : answers) {
       Question goodAnswer = questionRepository.findOne(answer.getId());

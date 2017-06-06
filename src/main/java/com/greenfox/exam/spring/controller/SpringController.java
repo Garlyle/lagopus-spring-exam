@@ -43,7 +43,7 @@ public class SpringController {
   }
 
   @PostMapping("/answers")
-  public List<Project> checkAnswers(@RequestBody QuestionsResponse answersBody) {
+  public ProjectResponse checkAnswers(@RequestBody QuestionsResponse answersBody) {
     List<Project> projectList = new ArrayList<>();
 
     int count = 0;
@@ -63,16 +63,20 @@ public class SpringController {
           ProjectResponse.class);
       projectList = response.getProjectList();
 
-      for (Project q : projectList) {
+      count = 1;
+      for (Project project : projectList) {
         try {
-          q.setNameOfProject(decode(q.getNameOfProject()));
+          project.setId(count);
+          project.setNameOfProject(decode(project.getNameOfProject()));
+          count++;
         } catch (Exception e) {
           e.printStackTrace();
         }
       }
     }
+    ProjectResponse response = new ProjectResponse(projectList);
 
-    return projectList;
+    return response;
   }
 
   public static String decode(String value) throws Exception {

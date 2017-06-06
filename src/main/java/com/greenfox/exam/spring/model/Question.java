@@ -1,8 +1,5 @@
 package com.greenfox.exam.spring.model;
 
-import com.greenfox.exam.spring.repository.QuestionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,7 +15,8 @@ public class Question {
   public Question() {
   }
 
-  public Question(String question) {
+  public Question(long id, String question) {
+    this.id = id;
     this.question = question;
   }
 

@@ -105,16 +105,17 @@ Your task is to create a RESTful quiz application with full of greenfox question
 ### In what cases would you choose to use an abstract class over an interface?
 
 Please define it with your own words. We are expecting at least 3 distinct ideas that you write here:
+Abstract classes are useful if you want the inherited objects to have methods with the same functionality, you can write it in your abstract class. You can also change their accessibility to private or protected if you don't want other classes to reach. Abstract classes can also have data members that you can use with your methods.
 
 
 ### Analyzing URL
 Please name the parts of the URL below.
 [<img src="assets/URLanalysis.png" alt="parts of URL" />](assets/URLanalysis.png?raw=true)
 
-1:  
-2:  
-3:  
-4:  
-5:  
-6:  
-7:  
+1:  Protocol
+2:  Host Name
+3:  Domain Name
+4:  Port Number
+5:  URL Path
+6:  Parameters starts here
+7:  URL parameters

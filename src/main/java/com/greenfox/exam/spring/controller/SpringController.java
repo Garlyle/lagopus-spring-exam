@@ -19,9 +19,9 @@ public class SpringController {
     int i = 1;
     while (i <= 5) {
       long randomId = (long)(Math.random() * questionRepository.count()) + 1;
-      String question = questionRepository.findOne(randomId).getQuestion();
-      if (!questionsResponse.contains(question)) {
-        questionsResponse.add(new Question(i, question));
+      if (!questionsResponse.contains(randomId)) {
+        Question question = questionRepository.findOne(randomId);
+        questionsResponse.add(question);
         i++;
       }
     }

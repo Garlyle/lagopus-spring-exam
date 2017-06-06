@@ -7,9 +7,9 @@ public class QuestionsResponse {
   long id;
   List<Question> questions;
 
-  public boolean contains(String question) {
+  public boolean contains(long id) {
     for (Question q : questions) {
-      if (q.question.equals(question)) {
+      if (q.id == id) {
         return true;
       }
     }

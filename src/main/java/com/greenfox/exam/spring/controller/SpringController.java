@@ -12,11 +12,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 @RestController
 public class SpringController {
+  final static String className = "eagles";
   @Autowired
   QuestionRepository questionRepository;
 
@@ -56,10 +59,24 @@ public class SpringController {
     if (count == answers.size()) {
       RestTemplate template = new RestTemplate();
       ProjectResponse response;
-      response = template.getForObject("https://springexamserver.herokuapp.com/projects/eagles", ProjectResponse.class);
+      response = template.getForObject("https://springexamserver.herokuapp.com/projects/" + className,
+          ProjectResponse.class);
       projectList = response.getProjectList();
+
+      for (Project q : projectList) {
+        try {
+          q.setNameOfProject(decode(q.getNameOfProject()));
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+      }
     }
 
     return projectList;
+  }
+
+  public static String decode(String value) throws Exception {
+    byte[] decodedValue = Base64.getDecoder().decode(value);  // Basic Base64 decoding
+    return new String(decodedValue, StandardCharsets.UTF_8);
   }
 }
